@@ -150,6 +150,10 @@
         var xhr = new XMLHttpRequest();
 
         xhr.open("GET", config.timeUrl + '?requestTime=' + new Date().getTime());
+        for (let header in config.signHeaders) {
+          if (!config.signHeaders.hasOwnProperty(header)) { continue; }
+          xhr.setRequestHeader(header, config.signHeaders[header])
+        }
         xhr.onreadystatechange = function () {
           if (xhr.readyState === 4) {
             if (xhr.status === 200) {
